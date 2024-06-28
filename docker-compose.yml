@@ -36,6 +36,7 @@ services:
 
   php81:
     container_name: php81
+    image: longnt195/php81
     build:
       dockerfile: Dockerfile
       context: php81
@@ -86,6 +87,7 @@ services:
 
   elasticsearch7:
     container_name: elasticsearch7
+    image: longnt195/elasticsearch:7.17.20
     build:
       dockerfile: Dockerfile
       context: elasticsearch7
