@@ -1,0 +1,141 @@
+services:
+#  pihole:
+#    container_name: pihole
+#    image: pihole/pihole:latest
+#    # For DHCP it is recommended to remove these ports and instead add: network_mode: "host"
+#    ports:
+#      - "53:53/tcp"
+#      - "53:53/udp"
+#  #    - "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
+#      - "88:80/tcp"
+#    environment:
+#      TZ: 'UTC'
+#      WEBPASSWORD: 'root'
+#    volumes:
+#      - ./pihole/etc-pihole:/etc/pihole
+#      - ./pihole/etc-dnsmasq.d:/etc/dnsmasq.d
+#    dns:
+#      - 127.0.0.1
+#    cap_add:
+#      - NET_ADMIN
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.22
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/general:/etc/nginx/nginxconfig
+      - ./nginx/sites:/etc/nginx/conf.d
+      - ./nginx/ssl:/etc/ssl
+      - ./projects81:/var/www/projects81:delegated
+    networks:
+      - longnt
+
+  php81:
+    container_name: php81
+    build:
+      dockerfile: Dockerfile
+      context: php81
+    volumes:
+      - ./projects81:/var/www/projects81:delegated
+      - ./composerCache:/var/www/.composer:delegated
+      - ./ssh/github:/.ssh/github
+      - ./ssh/bitbucket:/.ssh/bitbucket
+    working_dir: /var/www/projects81
+    networks:
+      - longnt
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb:10.4
+    shm_size: 2gb
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./mariadb/db:/db:delegated
+    command: mysqld --sql_mode="" --innodb_buffer_pool_size=5568435456 --max_allowed_packet=200000000 --innodb_strict_mode="OFF" --innodb_log_file_size=2503316480 --character-set-server=utf8 --collation-server=utf8_general_ci --innodb-flush-log-at-trx-commit=2 --optimizer_switch='rowid_filter=off' --optimizer_use_condition_selectivity=1
+    networks:
+      - longnt
+
+#  opensearch12:
+#    container_name: opensearch12
+#    ports:
+#      - 9201:9200
+#      - 9600:9600
+#    build:
+#      dockerfile: Dockerfile
+#      context: opensearch12
+#    environment:
+#      - cluster.name=opensearch-cluster
+#      - node.name=opensearch-node1
+#      - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
+#      - "OPENSEARCH_JAVA_OPTS=-Xms4g -Xmx4g"
+#      - "discovery.type=single-node"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#      nofile:
+#        soft: 65536 # maximum number of open files for the OpenSearch user, set to at least 65536 on modern systems
+#        hard: 65536
+
+  elasticsearch7:
+    container_name: elasticsearch7
+    build:
+      dockerfile: Dockerfile
+      context: elasticsearch7
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - "discovery.type=single-node"
+      - cluster.name=docker-cluster79
+      - node.name=node-79
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - longnt
+
+#  varnish:
+#    image: varnish:6
+#    container_name: varnish
+#    environment:
+#      - VARNISH_STORAGE_AMOUNT=2G
+#      - VARNISH_TRANSIENT_STORAGE_AMOUNT=2G
+#      - VARNISH_RESP_HDR_LEN=65536
+#      - VARNISH_RESP_SIZE=98304
+#    ports:
+#      - "8011:80"
+#    volumes:
+#      - ./config/varnish/magento.vcl:/etc/varnish/config/custom.vcl
+#      - ./volumes/shared:/mnt/web
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#      nofile:
+#        soft: 65536
+#        hard: 65536
+
+  mailhog:
+    container_name: mailhog
+    platform: linux/amd64
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+    networks:
+      - longnt
+
+networks:
+  longnt:
+    driver: bridge

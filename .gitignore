@@ -1,4 +1,5 @@
 .DS_Store
-/projects81/*
-/composerCache/*
-/ssh/*
+projects81/*
+mariadb/db/*
+composerCache/*
+ssh/*

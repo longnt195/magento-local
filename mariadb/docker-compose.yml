@@ -1,0 +1,168 @@
+version: "3.7"
+services:
+  web:
+    container_name: ${container_nginx}
+    image: nginx:1.19
+#    use varnish instead
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - "./log/nginx:/var/log/nginx"
+      - "./config/nginx/nginx.conf:/etc/nginx/nginx.conf"
+#      - ./config/nginx/sites:/etc/nginx/conf.d
+#      - ./config/nginx/sites71:/etc/nginx/conf71.d
+#      - ./config/nginx/sites72:/etc/nginx/conf72.d
+#      - ./config/nginx/sites73:/etc/nginx/conf73.d
+      - ./config/nginx/sites81:/etc/nginx/conf81.d
+      - ./config/nginx/certs:/etc/nginx/certs
+      # - projects-sync:/var/www/projects:nocopy
+      # - projects72-sync:/var/www/projects72:nocopy
+#      - ~/PWD/Docker/projects:/var/www/projects:delegated
+#      - ~/PWD/Docker/projects72:/var/www/projects72:delegated
+#      - ~/PWD/Docker/projects73:/var/www/projects73:delegated
+      - ~/PWD/Docker/projects81:/var/www/projects81:delegated
+    networks:
+      local:
+        aliases:
+          - web.local.docker
+
+#  php:
+#    container_name: ${container_php}
+#    build:
+#      dockerfile: Dockerfile
+#      context: config/php
+#      extra_hosts:
+#        - "host.docker.internal:192.168.2.193"
+#    environment:
+#        NEW_RELIC_AGENT_VERSION: "9.2.0.247"
+#        NEW_RELIC_LICENSE_KEY: "323984b630b7b238b0d9a62fa62356eac41fNRAL"
+#        NEW_RELIC_APPNAME: "PHP BI machine"
+#        NEW_RELIC_DAEMON_ADDRESS: "newrelic-php-daemon:31339"
+#    volumes:
+#      - projects-sync:/var/www/projects:nocopy
+#      - ~/PWD/Docker/projects:/var/www/projects:delegated
+#      - ./config/php/php.ini:/usr/local/etc/php/php.ini
+#      - ./config/php/newrelic.ini:/usr/local/etc/php/conf.d/newrelic.ini
+#      - ./config/php/www.conf:/usr/local/etc/php-fpm.d/www.conf
+#      - ./config/composer1.phar:/usr/local/bin/composer1
+#      - ./config/php/composer/composer210.phar:/usr/local/bin/composer2
+#      - ./log/php:/var/log
+#    depends_on:
+#      - mysql
+#    working_dir: /var/www/projects
+#    networks:
+#      local:
+#        aliases:
+#          - php.local.docker
+
+  # cron:
+  #   container_name: container_cron
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: config/php
+  #   command: run-cron
+  #   environment:
+  #     CRONTAB: '* * * * * root cd /app && /usr/local/bin/php bin/magento cron:run >> /app/var/log/cron.log'
+  #   volumes:
+  #     - 'mymagento-magento-sync:/app:nocopy'
+  #   networks:
+  #     magento:
+  #       aliases:
+  #         - cron.magento2.docker
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+
+#  mysql:
+#    container_name: ${container_db}
+#    image: mysql:5.7
+#    platform: linux/amd64
+#    ports:
+#      - "3306:3306"
+#    env_file: .env
+#    command: ['--character-set-server=utf8', '--collation-server=utf8_unicode_ci','--default-authentication-plugin=mysql_native_password']
+#    volumes:
+#      - ./config/mysql/:/home/mysql
+#    networks:
+#      local:
+#        aliases:
+#          - mysql.local.docker
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb:10.4
+    shm_size: 2gb
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    command: mysqld --sql_mode="" --innodb_buffer_pool_size=5568435456 --max_allowed_packet=200000000 --innodb_strict_mode="OFF" --innodb_log_file_size=2503316480 --character-set-server=utf8 --collation-server=utf8_general_ci --innodb-flush-log-at-trx-commit=2 --optimizer_switch='rowid_filter=off' --optimizer_use_condition_selectivity=1
+    volumes:
+      - ./config/mariadb/mysql/conf.d:/etc/mysql/conf.d
+    networks:
+      local:
+        aliases:
+          - mariadb.local.docker
+
+  elasticsearch:
+    build:
+      dockerfile: Dockerfile
+      context: config/elasticsearch
+    container_name: ${container_elasticsearch}
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - "discovery.type=single-node"
+      - cluster.name=docker-cluster79
+      - node.name=node-79
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      local:
+        aliases:
+          - elasticsearch.local.docker
+
+#  varnish:
+#    image: varnish:6
+#    container_name: varnish
+#    environment:
+#      - VARNISH_STORAGE_AMOUNT=2G
+#      - VARNISH_TRANSIENT_STORAGE_AMOUNT=2G
+#      - VARNISH_RESP_HDR_LEN=65536
+#      - VARNISH_RESP_SIZE=98304
+#    ports:
+#      - "8011:80"
+#    volumes:
+#      - ./config/varnish/magento.vcl:/etc/varnish/config/custom.vcl
+#      - ./volumes/shared:/mnt/web
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#      nofile:
+#        soft: 65536
+#        hard: 65536
+
+  mailhog:
+    container_name: mailhog
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025" # smtp server
+      - "8025:8025" # web ui
+    networks:
+      local:
+        aliases:
+          - mailhog.local.docker
+
+#  volumes:
+#   projects81: {  }
+#   projects-sync: {  }
+#networks:
+#  local:
+#    driver: bridge
