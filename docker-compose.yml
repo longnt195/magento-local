@@ -31,18 +31,34 @@ services:
       - ./nginx/sites:/etc/nginx/conf.d
       - ./nginx/ssl:/etc/ssl
       - ./projects81:/var/www/projects81:delegated
+      - ./projects82:/var/www/projects82:delegated
+    networks:
+      - longnt
+
+  php82:
+    container_name: php82
+    image: longnt195/php-fpm:8.2
+    build:
+      dockerfile: Dockerfile
+      context: php82
+    volumes:
+      - ./projects82:/var/www/projects82:delegated
+      - ./composerCache82:/var/www/.composer:delegated
+      - ./ssh/github:/.ssh/github
+      - ./ssh/bitbucket:/.ssh/bitbucket
+    working_dir: /var/www/projects82
     networks:
       - longnt
 
   php81:
     container_name: php81
-    image: longnt195/php81
+    image: longnt195/php-fpm:8.1
     build:
       dockerfile: Dockerfile
       context: php81
     volumes:
       - ./projects81:/var/www/projects81:delegated
-      - ./composerCache:/var/www/.composer:delegated
+      - ./composerCache81:/var/www/.composer:delegated
       - ./ssh/github:/.ssh/github
       - ./ssh/bitbucket:/.ssh/bitbucket
     working_dir: /var/www/projects81

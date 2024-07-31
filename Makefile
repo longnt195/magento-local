@@ -18,6 +18,8 @@ snd:
 	@docker-compose down
 go:
 	@docker exec --user www-data -it php81 /bin/bash
+go82:
+	@docker exec --user www-data -it php82 /bin/bash
 godb:
 	docker exec -it mariadb /bin/bash
 gonginx:
