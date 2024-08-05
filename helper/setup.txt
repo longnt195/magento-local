@@ -1,0 +1,253 @@
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$date = $objectManager->get('\Magento\Framework\Stdlib\DateTime\Filter\Date');
+$objectManager->get(\Magento\Framework\App\Http\Context::class)->getValue('customer_logged_in');
+
+\Magento\Email\Model\Transport::sendMessage
+$this->message->getBody()->getParts()[0]->getRawContent()
+
+
+bin/magento setup:install --db-host=mariadb --db-name=ltu --db-user=root --db-password=root --db-prefix="" --backend-frontname="admin" --admin-firstname=Admin --admin-lastname=Admin --admin-email=admin@example.com --admin-user=admin --admin-password=admin123 --base-url="https://au.ltu.test/" --search-engine=elasticsearch7 --elasticsearch-host=elasticsearch7 --elasticsearch-index-prefix="ltu" --elasticsearch-port=9200  --key="c2e03088461d14f1139160ef2c9e91a5"
+
+
+bin/magento setup:install --db-host=mariadb --db-name=m246p5ee --db-user=root --db-password=root --db-prefix="" --backend-frontname="admin" --admin-firstname=Admin --admin-lastname=Admin --admin-email=admin@example.com --admin-user=admin --admin-password=admin123 --base-url="https://au.m246p5ee.test/" --search-engine=elasticsearch7 --elasticsearch-host=elasticsearch7 --elasticsearch-index-prefix="m246p5ee" --elasticsearch-port=9200 --language=en_AU --currency=AUD --timezone=Australia/Melbourne --use-rewrites=1
+
+
+--cleanup-database
+
+git config --global -e
+to generate trusted cert:
+
+openssl s_client -connect github.com:443 -showcerts | less
+openssl s_client -connect api.github.com:443 -showcerts | less
+copy from -----BEGIN CERTIFICATE----- to -----END CERTIFICATE-----
+paste to the end of /etc/ssl/certs/ca-certificates.crt
+
+add ssh agent
+eval "$(ssh-agent -s)"
+ssh-add /.ssh/*
+
+bin/magento setup:install --db-host=mysql --db-name=m244p3ee --db-user=root --db-password=root --db-prefix="" --backend-frontname="admin" --elasticsearch-host=opensearch12 --elasticsearch-index-prefix="nik" --elasticsearch-port=9200 --search-engine=elasticsuite
+
+maintenance mode
+webserverips -> ssh to that ip and enable maintenance mode here
+
+Varnish cache clean param in url
+/?vanishrefresh=1
+
+hum 88A6A41F49084F48
+
+// apply m2 hotfix patches
+php vendor/bin/ece-patches  apply 
+
+sudo su - www
+docker exec -itu www php-fpm sh
+docker exec -itu www php-fpm bash
+php n98-magerun2.phar db:dump --strip="oauth_nonce magento_catalogpermissions_index_* aw_onsale* *_replica algolia* *_cl" --compression=gz ./burnsco0302.sql.gz
+
+curl -O https://files.magerun.net/n98-magerun2.phar
+ php n98-magerun2.phar db:dump --strip="@sales @oauth @log @sessions @dotmailer @2fa @newrelic_reporting @replica @temp @mailchimp cron_schedule magento_catalogpermissions_index_* aw_onsale* algolia* *_cl *_exporter_products bss_inventoryreport catalog_product_index_price bazaarvoice_index_* xtento_productexport_log unbxd_productfeed_indexing_queue sales_order_address_backup queue_message* bronto_connector_event_queue bronto_email* tmp_dot* spam_cleanup amasty_amrules_purchase_history_index magento_catalogpermissions_index* sales_bestsellers_aggregated* report_event email_importer sales_bestsellers_aggregated* report_viewed_product_aggregated* search_query magento_operation email_abandoned_cart magento_logging_event magento_bulk ae_ec admin_user admin_passwords scopes_customergroup_data_exporter_sync_batches ui_bookmark magento_logging_event_changes monash_mix_queue monash_sap_import_log vault_payment_token xtento_orderexport_profile_history" --compression=gz ../../var/mon0724.sql.gz
+
+scp -i /Users/lonnguye/Documents/keyz/mcloud 1.ent-2lry3oae6ghgw-staging-5em2ouy@ssh.ap-3.magento.cloud:~/var/est0624.sql.gz ~/pwd/docker/mariadb/db/
+
+docker cp ~/pwd/docker/mariadb/db/ mariadb:/
+docker exec -it mariadb /bin/bash
+mysql -u root -proot -e "CREATE DATABASE ltu"
+zcat /db/ltu0619.sql.gz | mysql -u root -proot ltu
+
+
+ scp af69d573_3@9252088fb8.nxcli.net:staging.workscene.com.au/var/wks0531.sql.gz ~/pwd/docker/mariadb/db
+AbasesIvoryRemissUpward
+ scp a2b5a07e_3@5e8f7e918a.nxcli.net:workscene.com.au/pub/media/wks0322zzz.sql.gz ~/PWD/Docker/config/mariadb/db
+RovedLooserElectDeceit
+
+docker cp ~/pwd/docker/php81/etc/php-fpm.ini php81:/usr/local/etc/php/conf.d/zz-magento.ini
+
+php n98-magerun2.phar db:dump --compression=gz --strip="oauth_nonce magento_catalogpermissions_index_product_tmp aw_onsale* *_cl *_replica" ./stg-20220729.sql.gz
+
+mysqldump --single-transaction -h $(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['host'];") -u $(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['username'];") -p$(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['password'];") $(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['dbname'];") | LANG=C LC_CTYPE=C LC_ALL=C sed -E 's/DEFINER[ ]*=[ ]*`[^`]+`@`[^`]+`/DEFINER=CURRENT_USER/g' | gzip -c > pub/media/ind1219.sql.gz
+
+mysqldump -h $(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['host'];") -u $(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['username'];") -p$(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['password'];") $(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['dbname'];") core_config_data > pub/media/coreConfigData2202.sql
+
+mysql -h $(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['host'];") -u $(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['username'];") -p$(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['password'];") $(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['dbname'];") 
+
+mysqldump -h $(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['host'];") -u $(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['username'];") -p$(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['password'];") $(php -r "\$env=include 'app/etc/env.php'; echo \$env['db']['connection']['default']['dbname'];") aw_pq_question aw_pq_answer aw_pq_notification_queue aw_pq_summary_question aw_pq_summary_answer aw_pq_notification_subscriber aw_pq_email_queue aw_pq_question_product aw_pq_question_product_condition > pub/media/kri0507.sql
+
+mysqldump -u root -proot eureka core_config_data > /home/mysql/eurLocalConfig.sql
+mysql -u root -pJYxnXK5kMrfXYwQ -D pgt4daogbua5m_stg < var/sql/
+mysqldump -u root -proot sgh | gzip > /db/sghlocal0805.sql.gz
+
+
+scp -i /Users/longnt/Documents/keyz/mcloud 1.ent-jnkhjiqsjtjko-staging2-5zxmgzy@ssh.ap-3.magento.cloud:var/keys/sap_sftp /Users/longnt/Documents/monSftp
+
+scp -i /Users/longnt/Documents/keyz/mcloud ssh 1.ent-zir3l7uvyx5o2-production-vohbr3y@ssh.ap-3.magento.cloud:var/csv_import/warehouse_master-en-au.csv /Users/longnt/Documents
+
+
+scp -i /Users/lonnguye/Documents/keyz/mcloud app/code/Betta/Unbxd/etc/unbxd_templates/bhl/category_page.json 1.ent-jnkhjiqsjtjko-staging2-5zxmgzy@ssh.ap-3.magento.cloud:app/code/Betta/Unbxd/etc/unbxd_templates/bhl/category_page.json
+
+scp -i /Users/longnt/Documents/keyz/mcloud /PWD/n98-magerun2.phar 1.ent-et4iffiv4vdeq-staging-5em2ouy@ssh.ap-3.magento.cloud:~
+
+scp -i /Users/lonnguye/Documents/keyz/mcloud ~/pwd/docker/projects81/debug.php 1.ent-656enyge3piym-production-vohbr3y@ssh.ap-3.magento.cloud:/var/
+
+scp -i /Users/lonnguye/Documents/keyz/mcloud 1.ent-ntw5y52qnxef2-production-vohbr3y@ssh.ap-3.magento.cloud:~/var/orderReport.csv /Users/lonnguye/Documents/
+
+ssh 1.ent-et4iffiv4vdeq-staging-5em2ouy@ssh.ap-3.magento.cloud
+
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' a4e101955a55
+
+sudo ln -s /etc/nginx/sites-available/krispykreme.vn /etc/nginx/sites-enabled/krispykreme.vn
+
+curl -X DELETE 'elasticsearch:9200/nikonstaging_zh_*'
+curl -X GET 'elasticsearch:9200/_settings'
+curl -X PUT "elasticsearch:9200/_settings?pretty" -H 'Content-Type: application/json' -d'
+
+{
+  "cluster" : {
+    "routing.allocation.total_shards_per_node" : -1
+  }
+}
+'
+
+curl -X PUT "elasticsearch:9200/_cluster/settings?pretty" -H 'Content-Type: application/json' -d'
+{
+  "transient": {
+    "cluster.routing.allocation.total_shards_per_node": -1
+  }
+}
+'
+
+curl -X POST "elasticsearch:9200/_reindex" -H 'Content-Type: application/json' -d'
+{
+  "source": {
+    "index": "betta81_default_catalog_product_20221003_075229"
+  },
+  "dest": {
+    "index": "betta81_default_catalog_product"
+  }
+}'
+
+grant all on *.* to '5z4vbnna26w3e_stg2'@'%' identified by 'root' with grant option;
+FLUSH PRIVILEGES;
+
+SET @email='longfunau@tmail.com',
+SET @passwd='admin@123', @salt=MD5(RAND());
+UPDATE customer_entity
+    SET password_hash = CONCAT(SHA2(CONCAT(@salt, @passwd), 256), ':', @salt, ':1')
+    WHERE entity_id = 229;
+
+find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} + && find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} + && chown -R root:www-data . && chmod u+x bin/magento
+
+composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition=2.4.6-p5 m246p5ee
+composer create-project --repository-url=https://repo.magento.com/ magento/product-community-edition=2.4.5-p6 m245p6ce
+
+
+bin/magento admin:user:create --admin-user=admin --admin-password=admin123 --admin-email=long.nguyen@balanceinternet.com.au --admin-firstname=Long --admin-lastname=Nguyen
+
+bin/magento config:set admin/security/use_form_key 0
+
+
+php bin/magento setup:install --elasticsearch-host=elasticsearch --elasticsearch-port=9200
+
+npm install phantomjs-prebuilt@2.1.13 --ignore-scripts
+npm install puppeteer@8.0.0 --ignore-scripts
+
+bin/magento setup:perf:generate-fixtures vendor/magento/magento2-base/setup/performance-toolkit/profiles/ce/small.xml
+
+block->getLayout()->getXmlString(); or
+$block->getLayout()->getNode()->asXML()
+
+
+/directory/currency/switch/currency/NZD
+
+GRANT ALL ON *.* TO '656enyge3piym_stg'@'%' IDENTIFIED BY 'root';
+FLUSH PRIVILEGES;
+
+
+composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition mce
+
+composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition=2.4.6-p4 m246p4ee
+
+php -d memory_limit=-1 /bin/uct /var/www/html/krispykreme
+php -d memory_limit=-1 /usr/local/bin/composer1 update --lock
+
+
+
+bin/magento queue:consumer:start shared_catalog_category_permissions_update krispykreme_shipping_label.export
+import_export.export
+
+docker cp 1aa568239364:/var/www/current/src/pub/media/windsor20221008.sql.gz ./
+docker cp cae1a931f7f7:/usr/local/etc/php/php.ini-development /var/www/html/magento242/config/php72/php.ini
+docker cp bdff993d6bba:/usr/local/etc/php/php.ini-development /Users/longnt/PWD/Docker/config/php81/php.ini
+docker cp cae1a931f7f7:/usr/local/etc/php-fpm.d/www.conf /var/www/html/magento242/config/php72/www.conf
+docker cp 8cc7d26da9e1:/etc/mysql/my.cnf /Users/longnt/PWD/Docker/config/mysql/my.cnf
+
+sed -i 's/DEFINER=[^*]*\*/\*/g' nikon_staging2705.sql
+
+openssl req -x509 -sha256 -nodes -newkey rsa:2048 -days 365 -keyout integration-5ojmyuq-jnkhjiqsjtjko.ap-3.magentosite.cloud -out integration-5ojmyuq-jnkhjiqsjtjko.ap-3.magentosite.cloud -config minimal.cnf
+
+openssl genrsa -out betta.key 2048
+openssl req -x509 -new -nodes -key betta.key -sha256 -days 1825 -out betta.pem
+
+https://au.asean.org/social/account/callback/provider/facebook/
+ composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition 
+
+// generate diff
+diff -Naur ec.js ec.js.patch>fix.patch
+
+// convert unix to dos
+unix2dos fix.patch
+
+// edit (keep ^M at the end of lines)
+sudo vim fix.patch
+
+
+var c = require('Magento_Customer/js/customer-data');
+c.reload(['current-store'], false)
+
+var ko = require('ko');
+var $ = jQuery;
+var l = require('Aheadworks_OnSale/js/ui/components/label');
+
+
+var quote = require('Magento_Checkout/js/model/quote'); console.info(quote.shippingAddress().customAttributes)
+var customerData = require('Magento_Customer/js/customer-data');
+customerData.invalidate(['cart']);
+customerData.reload(sections, true);
+
+./vendor/bin/ece-docker build:compose --mode="developer" --sync-engine="mutagen" --with-xdebug --db="db"  --with-cron
+
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout nikon-selfsigned.key -out nikon-selfsigned.crt
+
+mysqldump -u root -proot wks mg55_amasty_blog_author mg55_amasty_blog_author_store mg55_amasty_blog_categories mg55_amasty_blog_categories_store mg55_amasty_blog_comments mg55_amasty_blog_posts mg55_amasty_blog_posts_category mg55_amasty_blog_posts_store mg55_amasty_blog_posts_tag mg55_amasty_blog_post_helpful mg55_amasty_blog_tags mg55_amasty_blog_tags_store mg55_amasty_blog_views > /home/mysql/wksAmastyBlog.sql
+
+
+mysqldump -u root -proot eureka > /home/mysql/eureka.sql
+
+mysqldump -u root -proot betta81 core_config_data --where="path LIKE 'amblog%'" --no-create-info > /home/mysql/wksAmastyBlogConfig.sql
+
+mysqldump -u root -proot eureka core_config_data > /home/mysql/bettaProd81core_config_data.sql
+
+
+this.parentName + '.shippingAddress.shippingAdditional.betta-store-delivery
+
+phpstorm memory config
+/Users/longnt/Library/Application Support/JetBrains/PhpStorm2021.3/phpstorm.vmoptions
+
+access log: /var/log/platform/656enyge3piym/access.log.2.gz
+
+xdebug.client_host  docker.for.mac.localhost
+
+sudo vim /Users/longnt/Library/Containers/com.sequel-ace.sequel-ace/Data/.keys/ssh_known_hosts_strict
+
+reload css button 
+<div class="et_pb_module et_pb_text et_pb_text_7  et_pb_text_align_left et_pb_bg_layout_light">
+        
+        
+        <div class="et_pb_text_inner"><p><a href="javascript:(function(){var h,a,f;a=document.getElementsByTagName('link');for(h=0;h<a.length;h++){f=a[h];if(f.rel.toLowerCase().match(/stylesheet/)&amp;&amp;f.href){var g=f.href.replace(/(&amp;|%5C?)forceReload=\d+/,'');f.href=g+(g.match(/\?/)?'&amp;':'?')+'forceReload='+(new Date().valueOf())}}})()" class="et_pb_button et_pb_promo_button">Reload CSS</a></p></div>
+      </div>
+
+
+Xtento license 
+\Xtento\XtCore\Helper\Server::confirm return true
+
+sequel ace
+sudo vim  /Users/longnt/Library/Containers/com.sequel-ace.sequel-ace/Data/.keys/ssh_known_hosts_strict
