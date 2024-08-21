@@ -6,7 +6,7 @@ $objectManager->get(\Magento\Framework\App\Http\Context::class)->getValue('custo
 $this->message->getBody()->getParts()[0]->getRawContent()
 
 
-bin/magento setup:install --db-host=mariadb --db-name=ltu --db-user=root --db-password=root --db-prefix="" --backend-frontname="admin" --admin-firstname=Admin --admin-lastname=Admin --admin-email=admin@example.com --admin-user=admin --admin-password=admin123 --base-url="https://au.ltu.test/" --search-engine=elasticsearch7 --elasticsearch-host=elasticsearch7 --elasticsearch-index-prefix="ltu" --elasticsearch-port=9200  --key="c2e03088461d14f1139160ef2c9e91a5"
+bin/magento setup:install --db-host=mariadb --db-name=uom --db-user=root --db-password=root --db-prefix="" --backend-frontname="admin" --admin-firstname=Admin --admin-lastname=Admin --admin-email=admin@example.com --admin-user=admin --admin-password=admin123 --base-url="https://au.uom.test/" --search-engine=elasticsearch7 --elasticsearch-host=elasticsearch7 --elasticsearch-index-prefix="uom" --elasticsearch-port=9200  --key="9597a8d8057c24a8f575d7671947f85b"
 
 
 bin/magento setup:install --db-host=mariadb --db-name=m246p5ee --db-user=root --db-password=root --db-prefix="" --backend-frontname="admin" --admin-firstname=Admin --admin-lastname=Admin --admin-email=admin@example.com --admin-user=admin --admin-password=admin123 --base-url="https://au.m246p5ee.test/" --search-engine=elasticsearch7 --elasticsearch-host=elasticsearch7 --elasticsearch-index-prefix="m246p5ee" --elasticsearch-port=9200 --language=en_AU --currency=AUD --timezone=Australia/Melbourne --use-rewrites=1
@@ -23,8 +23,7 @@ copy from -----BEGIN CERTIFICATE----- to -----END CERTIFICATE-----
 paste to the end of /etc/ssl/certs/ca-certificates.crt
 
 add ssh agent
-eval "$(ssh-agent -s)"
-ssh-add /.ssh/*
+eval "$(ssh-agent -s)" && ssh-add /.ssh/*
 
 bin/magento setup:install --db-host=mysql --db-name=m244p3ee --db-user=root --db-password=root --db-prefix="" --backend-frontname="admin" --elasticsearch-host=opensearch12 --elasticsearch-index-prefix="nik" --elasticsearch-port=9200 --search-engine=elasticsuite
 
@@ -45,7 +44,8 @@ docker exec -itu www php-fpm bash
 php n98-magerun2.phar db:dump --strip="oauth_nonce magento_catalogpermissions_index_* aw_onsale* *_replica algolia* *_cl" --compression=gz ./burnsco0302.sql.gz
 
 curl -O https://files.magerun.net/n98-magerun2.phar
- php n98-magerun2.phar db:dump --strip="@sales @oauth @log @sessions @dotmailer @2fa @newrelic_reporting @replica @temp @mailchimp cron_schedule magento_catalogpermissions_index_* aw_onsale* algolia* *_cl *_exporter_products bss_inventoryreport catalog_product_index_price bazaarvoice_index_* xtento_productexport_log unbxd_productfeed_indexing_queue sales_order_address_backup queue_message* bronto_connector_event_queue bronto_email* tmp_dot* spam_cleanup amasty_amrules_purchase_history_index magento_catalogpermissions_index* sales_bestsellers_aggregated* report_event email_importer sales_bestsellers_aggregated* report_viewed_product_aggregated* search_query magento_operation email_abandoned_cart magento_logging_event magento_bulk ae_ec admin_user admin_passwords scopes_customergroup_data_exporter_sync_batches ui_bookmark magento_logging_event_changes monash_mix_queue monash_sap_import_log vault_payment_token xtento_orderexport_profile_history" --compression=gz ../../var/mon0724.sql.gz
+php n98-magerun2.phar db:dump --strip="@sales @oauth @log @sessions @dotmailer @2fa @newrelic_reporting @replica @temp @mailchimp *_queue temp cron_schedule magento_catalogpermissions_index_* catalog_category_product_index* aw_onsale* algolia* *_cl *_exporter_products bss_inventoryreport catalog_product_index_price bazaarvoice_index_* xtento_productexport_log unbxd_productfeed_indexing_queue sales_order_address_backup queue_message* bronto_connector_event_queue bronto_email* tmp_dot* spam_cleanup amasty_amrules_purchase_history_index magento_catalogpermissions_index* sales_bestsellers_aggregated* report_event email_importer sales_bestsellers_aggregated* report_viewed_product_aggregated* search_query magento_operation email_abandoned_cart magento_logging_event magento_bulk ae_ec admin_user admin_passwords scopes_customergroup_data_exporter_sync_batches ui_bookmark magento_logging_event_changes monash_sap_import_log vault_payment_token xtento_orderexport_profile_history aw_arep* shippit* unbxd* mageworx* facebook* termando_quote termando_shipment* meta_issue_notifications atom_* firebear_importexport_importdata mailchimp_sync_ecommerce" --compress
+ion=gz pub/media/atm0821.sql.gz
 
 scp -i /Users/lonnguye/Documents/keyz/mcloud 1.ent-2lry3oae6ghgw-staging-5em2ouy@ssh.ap-3.magento.cloud:~/var/est0624.sql.gz ~/pwd/docker/mariadb/db/
 

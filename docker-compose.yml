@@ -41,6 +41,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: php82
+#    entrypoint: /docker-entrypoint.sh
     volumes:
       - ./projects82:/var/www/projects82:delegated
       - ./composerCache82:/var/www/.composer:delegated
@@ -53,9 +54,12 @@ services:
   php81:
     container_name: php81
     image: longnt195/php-fpm:8.1
+    ports:
+      - 5000:5000
     build:
       dockerfile: Dockerfile
       context: php81
+#    entrypoint: /docker-entrypoint.sh
     volumes:
       - ./projects81:/var/www/projects81:delegated
       - ./composerCache81:/var/www/.composer:delegated

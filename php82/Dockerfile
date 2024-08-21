@@ -60,6 +60,10 @@ RUN npm install -g grunt-cli
 COPY composer/composer2218.phar /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer
 
+# entrypoint
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
 # user
 RUN chown -R www-data:www-data /usr/local /var/www /var/log /usr/local/etc/php/conf.d
 USER www-data
