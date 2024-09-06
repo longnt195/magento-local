@@ -10,7 +10,7 @@ RUN if [ $(uname -m) = "x86_64" ]; then mailhog_arch="amd64"; else mailhog_arch=
     && GOOS=linux GOARCH=${mailhog_arch} go build -o mhsendmail .
 
 FROM node:14.18.1-alpine AS node
-FROM php:8.1.1-fpm
+FROM php:8.1.28-fpm
 
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
