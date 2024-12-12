@@ -32,6 +32,7 @@ services:
       - ./nginx/ssl:/etc/ssl
       - ./projects81:/var/www/projects81:delegated
       - ./projects82:/var/www/projects82:delegated
+    restart: always
     networks:
       - longnt
 
@@ -56,15 +57,16 @@ services:
     image: longnt195/php-fpm:8.1
     ports:
       - 5000:5000
+      - 4242:4242
     build:
       dockerfile: Dockerfile
       context: php81
-#    entrypoint: /docker-entrypoint.sh
     volumes:
       - ./projects81:/var/www/projects81:delegated
       - ./composerCache81:/var/www/.composer:delegated
       - ./ssh/github:/.ssh/github
       - ./ssh/bitbucket:/.ssh/bitbucket
+      - ~/.ssh:/root/.ssh:ro
     working_dir: /var/www/projects81
     networks:
       - longnt
@@ -79,7 +81,9 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./mariadb/db:/db:delegated
-    command: mysqld --sql_mode="" --innodb_buffer_pool_size=5568435456 --max_allowed_packet=200000000 --innodb_strict_mode="OFF" --innodb_log_file_size=2503316480 --character-set-server=utf8 --collation-server=utf8_general_ci --innodb-flush-log-at-trx-commit=2 --optimizer_switch='rowid_filter=off' --optimizer_use_condition_selectivity=1
+      - ./mariadb/conf:/etc/mysql/mariadb.conf.d:delegated
+    restart: always
+    command: mysqld --sql_mode="" --innodb_ft_result_cache_limit=8000000000 --innodb_buffer_pool_size=5568435456 --max_allowed_packet=200000000 --innodb_strict_mode="OFF" --innodb_log_file_size=2503316480 --character-set-server=utf8 --collation-server=utf8_general_ci --innodb-flush-log-at-trx-commit=2 --optimizer_switch='rowid_filter=off' --optimizer_use_condition_selectivity=1
     networks:
       - longnt
 

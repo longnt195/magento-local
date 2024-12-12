@@ -33,32 +33,16 @@ try {
     $permission = $objectManager->create('Magento\CatalogPermissions\Model\Indexer\Product');
     $stock = $objectManager->create('Magento\CatalogInventory\Model\Indexer\Stock');
 
-    $productIds = [330930, 330709, 330961, 1146555,
-    	329578,
-	329577,
-	329576,
-	329575,
-	329574,
-	329573,
-	329572,
-	329571,
-	314694];
+    $productIds = [33066];
 
-    $selection = $objectManager->create('\Magento\Bundle\Model\ResourceModel\Selection');
-    $options = $selection->getChildrenIds(330930);
-    $productIds = array_merge($productIds, ...$options);
+//    $selection = $objectManager->create('\Magento\Bundle\Model\ResourceModel\Selection');
+//    $options = $selection->getChildrenIds(330930);
+//    $productIds = array_merge($productIds, ...$options);
 
-    $price->execute($productIds);
+//    $price->execute($productIds);
     $fulltext->execute($productIds);
-    $permission->execute($productIds);
-    $stock->execute($productIds);
-
-//    $time_start = microtime(true);
-//    $productRepository = $objectManager->get('Magento\Catalog\Model\ProductRepository');
-//    $productRepository->getById(330641);
-//    $time_end = microtime(true);
-//    $execution_time = ($time_end - $time_start);
-//    var_dump($execution_time);
+//    $permission->execute($productIds);
+//    $stock->execute($productIds);
 } catch (\Exception $e){
     echo $e->__toString();
 }
