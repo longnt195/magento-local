@@ -1,5 +1,5 @@
 .DS_Store
-projects81/*
+projects*
 mariadb/db/*
-composerCache/*
+composerCache*
 ssh/*

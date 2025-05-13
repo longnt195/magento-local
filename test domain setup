@@ -1,0 +1,50 @@
+dns
+brew install dnsmasq
+mkdir -pv $(brew --prefix)/etc/
+echo 'address=/.test/127.0.0.1' >> $(brew --prefix)/etc/dnsmasq.conf
+sudo brew services start dnsmasq
+
+sudo mkdir -v /etc/resolver
+sudo bash -c 'echo "nameserver 127.0.0.1" > /etc/resolver/test'
+ping -c 1 apple.com
+ping -c 1 apple.test
+
+Ssl
+
+vi openssl-san.cnf
+Insert this content
+
+[ req ]
+default_bits = 2048
+default_keyfile = privkey.pem
+distinguished_name = req_distinguished_name
+x509_extensions = v3_req
+prompt = no
+
+[ req_distinguished_name ]
+C = US
+ST = California
+L = San Francisco
+O = Test Company
+OU = IT Department
+CN = local.test
+
+[ v3_req ]
+keyUsage = critical, digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = au.mit.test
+DNS.2 = hh.mit.test
+DNS.3 = pp.mit.test
+DNS.4 = au.kri.test
+DNS.5 = nz.kri.test
+
+
+
+openssl req -new -out mycsr.csr -newkey rsa:2048 -keyout privkey.pem -config openssl-san.cnf -nodes
+openssl x509 -req -in mycsr.csr -signkey privkey.pem -out mycert.crt -extensions v3_req -extfile openssl-san.cnf
+openssl x509 -in mycert.crt -noout -text
+
+Import mycert.crt to Keychain

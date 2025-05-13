@@ -16,7 +16,7 @@ innodb = force
 innodb_strict_mode="OFF"
 max_allowed_packet = 250M
 max_connect_errors = 1000
-bind-address = 127.0.0.1
+bind-address = 0.0.0.0
 skip-name-resolve
 
 ### LANGUAGE #

@@ -22,6 +22,8 @@ go82:
 	@docker exec --user www-data -it php82 /bin/bash
 godb:
 	docker exec -it mariadb /bin/bash
+godb106:
+	docker exec -it mariadb106 /bin/bash
 gonginx:
 	docker exec -it nginx /bin/bash
 goos:
