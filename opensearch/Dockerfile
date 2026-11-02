@@ -1,4 +1,4 @@
-FROM opensearchproject/opensearch:1.2.1
+FROM opensearchproject/opensearch:2.5.0
 
 USER root
 RUN yum -y install zip && \
@@ -7,6 +7,12 @@ RUN yum -y install zip && \
     yum -y clean all && \
     rm -rf /var/cache
 
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 USER opensearch
+
 RUN bin/opensearch-plugin install -b analysis-icu && \
     bin/opensearch-plugin install -b analysis-phonetic
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]

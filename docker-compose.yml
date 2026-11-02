@@ -9,8 +9,6 @@ services:
       - ./tls/nginx.conf:/etc/nginx/nginx.conf
       - ./tls/ssl:/etc/ssl
     restart: unless-stopped
-    depends_on:
-      - varnish
     networks:
       - longnt
 
@@ -22,46 +20,97 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/sites:/etc/nginx/conf.d
-      - ./nginx/ssl:/etc/ssl
-      - ./projects81:/var/www/projects81:delegated
-      - ./projects82:/var/www/projects82:delegated
+#      - ./projects81:/var/www/projects81:delegated
+#      - ./projects82:/var/www/projects82:delegated
+      - ./projects83:/var/www/projects83:delegated
+#      - ./projects85:/var/www/projects85:delegated
     restart: unless-stopped
     networks:
       - longnt
 
-  php82:
-    container_name: php82
+#  php85:
+#    container_name: php85
+#    build:
+#      dockerfile: Dockerfile
+#      context: php85
+##    entrypoint: /docker-entrypoint.sh
+#    volumes:
+#      - ./projects85:/var/www/projects85:delegated
+#      - ./composerCache85:/var/www/.composer:delegated
+#      - ./php85/etc/php-fpm.ini:/usr/local/etc/php/conf.d/zz-magento.ini:rw
+#      - ./php85/etc/php-xdebug.ini:/usr/local/etc/php/conf.d/zz-xdebug-settings.ini:rw
+#      - ./php85/etc/mail.ini:/usr/local/etc/php/conf.d/zz-mail.ini:rw
+#      - ./ssh/github:/var/www/.ssh/github
+#      - ./ssh/bitbucket:/var/www/.ssh/bitbucket
+#      - ./ssh/config:/.ssh/config
+#      - ./ssh/config:/etc/ssh/ssh_config.d/my_ssh_config.conf
+#    working_dir: /var/www/projects85
+#    extra_hosts:
+#      - "host.docker.internal:host-gateway"
+#    networks:
+#      - longnt
+
+  php83:
+    container_name: php83
     build:
       dockerfile: Dockerfile
-      context: php82
+      context: php83
 #    entrypoint: /docker-entrypoint.sh
     volumes:
-      - ./projects82:/var/www/projects82:delegated
-      - ./composerCache82:/var/www/.composer:delegated
-      - ./ssh/github:/.ssh/github
-      - ./ssh/bitbucket:/.ssh/bitbucket
+      - ./projects83:/var/www/projects83:delegated
+      - ./composerCache83:/var/www/.composer:delegated
+      - ./php83/etc/php-fpm.ini:/usr/local/etc/php/conf.d/zz-magento.ini:rw
+      - ./php83/etc/php-xdebug.ini:/usr/local/etc/php/conf.d/zz-xdebug-settings.ini:rw
+      - ./php83/etc/mail.ini:/usr/local/etc/php/conf.d/zz-mail.ini:rw
+      - ./ssh/github:/var/www/.ssh/github
+      - ./ssh/bitbucket:/var/www/.ssh/bitbucket
       - ./ssh/config:/.ssh/config
-    working_dir: /var/www/projects82
+      - ./ssh/config:/etc/ssh/ssh_config.d/my_ssh_config.conf
+    working_dir: /var/www/projects83
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - longnt
 
-  php81:
-    container_name: php81
-    ports:
-      - 5000:5000
-      - 4242:4242
-    build:
-      dockerfile: Dockerfile
-      context: php81
-    volumes:
-      - ./projects81:/var/www/projects81:delegated
-      - ./composerCache81:/var/www/.composer:delegated
-      - ./ssh/github:/.ssh/github
-      - ./ssh/bitbucket:/.ssh/bitbucket
-      - ./ssh/config:/.ssh/config
-    working_dir: /var/www/projects81
-    networks:
-      - longnt
+#  php82:
+#    container_name: php82
+#    build:
+#      dockerfile: Dockerfile
+#      context: php82
+##    entrypoint: /docker-entrypoint.sh
+#    volumes:
+#      - ./projects82:/var/www/projects82:delegated
+#      - ./composerCache82:/var/www/.composer:delegated
+#      - ./php82/etc/php-fpm.ini:/usr/local/etc/php/conf.d/zz-magento.ini:rw
+#      - ./php82/etc/php-xdebug.ini:/usr/local/etc/php/conf.d/zz-xdebug-settings.ini:rw
+#      - ./php82/etc/mail.ini:/usr/local/etc/php/conf.d/zz-mail.ini:rw
+#      - ./ssh/github:/var/www/.ssh/github
+#      - ./ssh/bitbucket:/var/www/.ssh/bitbucket
+#      - ./ssh/config:/.ssh/config
+#      - ./ssh/config:/etc/ssh/ssh_config.d/my_ssh_config.conf
+#    working_dir: /var/www/projects82
+#    extra_hosts:
+#      - "host.docker.internal:host-gateway"
+#    networks:
+#      - longnt
+
+#  php81:
+#    container_name: php81
+#    ports:
+#      - 5000:5000
+#      - 4242:4242
+#    build:
+#      dockerfile: Dockerfile
+#      context: php81
+#    volumes:
+#      - ./projects81:/var/www/projects81:delegated
+#      - ./composerCache81:/var/www/.composer:delegated
+#      - ./ssh/github:/.ssh/github
+#      - ./ssh/bitbucket:/.ssh/bitbucket
+#      - ./ssh/config:/.ssh/config
+#    working_dir: /var/www/projects81
+#    networks:
+#      - longnt
 
   mariadb:
     container_name: mariadb
@@ -79,50 +128,71 @@ services:
     networks:
       - longnt
 
-#  opensearch12:
-#    container_name: opensearch12
+#  mariadb123:
+#    container_name: mariadb123
+#    image: mariadb:12.3
+#    shm_size: 2gb
 #    ports:
-#      - 9201:9200
-#      - 9600:9600
-#    build:
-#      dockerfile: Dockerfile
-#      context: opensearch12
+#      - "3307:3306"
 #    environment:
-#      - cluster.name=opensearch-cluster
-#      - node.name=opensearch-node1
-#      - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
-#      - "OPENSEARCH_JAVA_OPTS=-Xms4g -Xmx4g"
-#      - "discovery.type=single-node"
-#    ulimits:
-#      memlock:
-#        soft: -1
-#        hard: -1
-#      nofile:
-#        soft: 65536 # maximum number of open files for the OpenSearch user, set to at least 65536 on modern systems
-#        hard: 65536
+#      MYSQL_ROOT_PASSWORD: root
+#    volumes:
+#      - ./mariadb123/db:/db:delegated
+#      - ./mariadb123/conf:/etc/mysql/mariadb.conf.d:delegated
+#    restart: unless-stopped
+#    command: mariadbd --sql_mode="" --innodb_ft_result_cache_limit=8000000000 --innodb_buffer_pool_size=5568435456 --max_allowed_packet=200000000 --innodb_strict_mode="OFF" --innodb_log_file_size=2503316480 --character-set-server=utf8 --collation-server=utf8_general_ci --innodb-flush-log-at-trx-commit=2 --optimizer_switch='rowid_filter=off' --optimizer_use_condition_selectivity=1
+#    networks:
+#      - longnt
 
-  elasticsearch7:
-    container_name: elasticsearch7
+  opensearch2:
+    container_name: opensearch2
+    ports:
+      - 9200:9200
+      - 9300:9300
     build:
       dockerfile: Dockerfile
-      context: elasticsearch7
-    ports:
-      - "9200:9200"
-      - "9300:9300"
+      context: opensearch
     environment:
-      - "discovery.type=single-node"
-      - cluster.name=docker-cluster79
-      - node.name=node-79
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
-      - bootstrap.memory_lock=true
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node1
+      - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
       - allow_root=true
+      - discovery.type=single-node
+      - OPENSEARCH_JAVA_OPTS=-Xms4g -Xmx4g
+      - plugins.security.disabled=true
     ulimits:
       memlock:
         soft: -1
         hard: -1
+      nofile:
+        soft: 65536 # maximum number of open files for the OpenSearch user, set to at least 65536 on modern systems
+        hard: 65536
     restart: unless-stopped
     networks:
       - longnt
+
+  # elasticsearch7:
+  #   container_name: elasticsearch7
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: elasticsearch7
+  #   ports:
+  #     - "9200:9200"
+  #     - "9300:9300"
+  #   environment:
+  #     - "discovery.type=single-node"
+  #     - cluster.name=docker-cluster79
+  #     - node.name=node-79
+  #     - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+  #     - bootstrap.memory_lock=true
+  #     - allow_root=true
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   restart: unless-stopped
+  #   networks:
+  #     - longnt
 
   varnish:
     image: varnish:6.0
@@ -146,6 +216,9 @@ services:
         -T localhost:6082
         -f /etc/varnish/default.vcl
         -s malloc,256m
+        -p http_req_hdr_len=64k
+        -p http_resp_hdr_len=64k
+        -p http_max_hdr=128
     ulimits:
      memlock:
        soft: -1
@@ -159,11 +232,62 @@ services:
     networks:
       - longnt
 
-  redis:
-    image: redis:7.2
-    container_name: redis
+#  varnish8:
+#    image: varnish:8.0
+#    container_name: varnish8
+#    build:
+#      context: varnish8
+#    environment:
+#      - VARNISH_STORAGE_AMOUNT=2G
+#      - VARNISH_TRANSIENT_STORAGE_AMOUNT=2G
+#      - VARNISH_RESP_HDR_LEN=65536
+#      - VARNISH_RESP_SIZE=98304
+#    ports:
+#      - "6083:6081"
+#      - "6084:6082"
+#    volumes:
+#      - ./varnish8/config/default.vcl:/etc/varnish/default.vcl
+#    command: >
+#      varnishd
+#        -F
+#        -a :6081
+#        -T localhost:6082
+#        -f /etc/varnish/default.vcl
+#        -s malloc,256m
+#        -p http_req_hdr_len=64k
+#        -p http_resp_hdr_len=64k
+#        -p http_max_hdr=128
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#      nofile:
+#        soft: 65536
+#        hard: 65536
+#    restart: unless-stopped
+#    depends_on:
+#      nginx:
+#        condition: service_started
+#    networks:
+#      - longnt
+
+  # redis:
+  #   image: redis:7.2
+  #   container_name: redis
+  #   ports:
+  #     - "6378:6379"
+  #   networks:
+  #     - longnt
+
+  valkey:
+    image: valkey/valkey:8
+    container_name: valkey
     ports:
       - "6379:6379"
+    volumes:
+      - ./valkey/data:/data
+    restart: unless-stopped
+    command: ["valkey-server", "--save", "900", "1", "--loglevel", "notice", "--appendonly", "yes"]
     networks:
       - longnt
 

@@ -40,11 +40,26 @@ DNS.2 = hh.mit.test
 DNS.3 = pp.mit.test
 DNS.4 = au.kri.test
 DNS.5 = nz.kri.test
-
-
+DNS.6 = au.nik.test
+DNS.7 = in.nik.test
+DNS.8 = au.bet.test
+DNS.9 = fz.bet.test
+DNS.10 = sc.bet.test
+DNS.11 = bg.bet.test
+DNS.12 = rte.bet.test
+DNS.13 = au.m247ee.test
+DNS.14 = au.m248ee.test
+DNS.15 = au.uom.test
+DNS.16 = mer.uom.test
+DNS.17 = msp.uom.test
+DNS.18 = sho.uom.test
+DNS.19 = adv.uom.test
+DNS.20 = cap.uom.test
+DNS.21 = mgs.uom.test
+DNS.22 = au.tot.test
 
 openssl req -new -out mycsr.csr -newkey rsa:2048 -keyout privkey.pem -config openssl-san.cnf -nodes
-openssl x509 -req -in mycsr.csr -signkey privkey.pem -out mycert.crt -extensions v3_req -extfile openssl-san.cnf
-openssl x509 -in mycert.crt -noout -text
+openssl x509 -req -in mycsr.csr -signkey privkey.pem -out mycert.crt -extensions v3_req -extfile openssl-san.cnf -days 36500
+openssl x509 -in mycert.crt -noout -text | grep "Not"
 
-Import mycert.crt to Keychain
+Import mycert.crt to Keychain -> Always Trust

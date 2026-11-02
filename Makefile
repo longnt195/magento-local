@@ -14,26 +14,34 @@ restart:
 	@echo "Docker Stop"
 	@docker-compose restart
 snd:
-	@echo "Docker Stop and Down (stop and remove all container data - becaful)"
+	@echo "Docker Stop and Down (stop and remove all container data - becareful)"
 	@docker-compose down
 go:
 	@docker exec --user www-data -it php81 /bin/bash
+go85:
+	@docker exec --user www-data -it php85 /bin/bash
 go82:
 	@docker exec --user www-data -it php82 /bin/bash
+go83:
+	@docker exec --user www-data -it php83 /bin/bash
 godb:
 	docker exec -it mariadb /bin/bash
-godb106:
-	docker exec -it mariadb106 /bin/bash
+godb123:
+	docker exec -it mariadb123 /bin/bash
 gonginx:
 	docker exec -it nginx /bin/bash
 goos:
-	docker exec -it opensearch12 /bin/bash
+	docker exec -it opensearch2 /bin/bash
 go81:
 	docker exec -it php81 /bin/bash
 go_newrelic:
 	docker exec -it newrelic-infra /bin/bash
 go_npd:
 	docker exec -it newrelic-php-daemon /bin/bash
+vnl:
+	docker exec -it varnish varnishlog
+govk:
+	docker exec -it valkey valkey-cli
 
 chmod:
 	@echo "Update permission"

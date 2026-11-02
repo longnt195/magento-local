@@ -9,17 +9,24 @@ backend default {
     .host = "nginx";
     .port = "8080";
     .first_byte_timeout = 600s;
+    .between_bytes_timeout = 600s;
     .probe = {
         .url = "/health_check.php";
-        .timeout = 2s;
-        .interval = 5s;
+        .timeout = 15s;
+        .interval = 60s;
         .window = 10;
         .threshold = 5;
-   }
+    }
 }
 
 acl purge {
     "localhost";
+    "127.0.0.1";
+    "172.18.0.0"/16; # Docker bridge network
+    "172.18.0.7"; #php82
+    "172.18.0.8"; #php81
+    "172.18.0.9"; #php85
+    "::1";
 }
 
 sub vcl_recv {
@@ -63,7 +70,7 @@ sub vcl_recv {
     }
 
     # Bypass customer, shopping cart, checkout
-    if (req.url ~ "/customer" || req.url ~ "/checkout") {
+    if (req.url ~ "/customer" || req.url ~ "/checkout" || req.url ~ "[?&]nocache=1(&|$)") {
         return (pass);
     }
 
@@ -250,4 +257,3 @@ sub vcl_hit {
         return (deliver);
     }
 }
-

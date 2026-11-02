@@ -11,7 +11,7 @@ ST = California
 L = San Francisco
 O = Test Company
 OU = IT Department
-CN = example.com
+CN = local.test
 
 [ v3_req ]
 keyUsage = critical, digitalSignature, keyEncipherment
@@ -24,3 +24,10 @@ DNS.2 = hh.mit.test
 DNS.3 = pp.mit.test
 DNS.4 = au.kri.test
 DNS.5 = nz.kri.test
+DNS.6 = au.nik.test
+DNS.7 = in.nik.test
+DNS.8 = au.bet.test
+DNS.9 = fz.bet.test
+DNS.10 = sc.bet.test
+DNS.11 = bg.bet.test
+DNS.12 = rte.bet.test

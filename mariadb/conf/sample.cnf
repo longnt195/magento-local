@@ -64,7 +64,7 @@ innodb_ft_result_cache_limit = 8000000000
 innodb-flush-log-at-trx-commit = 2
 
 ### LOGGING #
-log_error = /var/log/mysqld.log
+#log_error = /var/log/mysqld.log
 #log_queries_not_using_indexes = 1
 #log_slow_admin_statements = 1
 #slow_query_log = 1
