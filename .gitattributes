@@ -1,0 +1,8 @@
+# Keep Linux-consumed files LF so containers work on Windows checkouts (core.autocrlf=true)
+*.sh       text eol=lf
+Dockerfile text eol=lf
+*.conf     text eol=lf
+*.cnf      text eol=lf
+*.ini      text eol=lf
+*.vcl      text eol=lf
+*.yml      text eol=lf

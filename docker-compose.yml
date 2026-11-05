@@ -197,8 +197,6 @@ services:
   varnish:
     image: varnish:6.0
     container_name: varnish
-    build:
-      context: varnish
     environment:
      - VARNISH_STORAGE_AMOUNT=2G
      - VARNISH_TRANSIENT_STORAGE_AMOUNT=2G

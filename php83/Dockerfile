@@ -117,8 +117,8 @@ RUN set -eux \
   && export PHP_VERSION=$(php -r "echo PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;") \
   && export PHP_EXT_DIR=$(php-config --extension-dir) \
   && cd /tmp \
-  && if [ $(uname -m) = "x86_64" ]; then arch="x86-64"; else arch="aarch64"; fi \
-  && curl -O https://www.sourceguardian.com/loaders/download/loaders.linux-${arch}.tar.gz \
+  && if [ $(uname -m) = "x86_64" ]; then arch="x86_64"; else arch="aarch64"; fi \
+  && curl -fO https://www.sourceguardian.com/loaders/download/loaders.linux-${arch}.tar.gz \
   && tar zxvf loaders.linux-${arch}.tar.gz \
   && cp "./ixed.${PHP_VERSION}.lin" ${PHP_EXT_DIR} \
   && echo "zend_extension=${PHP_EXT_DIR}/ixed.${PHP_VERSION}.lin" > /usr/local/etc/php/conf.d/00-sourceguardian.ini \
